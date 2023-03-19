@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,23 @@ using UnityEngine;
 public class MemoryCard : MonoBehaviour
 {
     [SerializeField] GameObject cardBack;
+    [SerializeField] SceneController sceneController;
+    [SerializeField] int Id { get; set; }
+
+    private SpriteRenderer spriteRenderer;
+    private SpriteRenderer SpriteRenderer
+    {
+        get
+        {
+            if (spriteRenderer == null)
+                spriteRenderer = GetComponent<SpriteRenderer>();
+            return spriteRenderer;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
     }
 
     // Update is called once per frame
@@ -22,5 +35,11 @@ public class MemoryCard : MonoBehaviour
     {
         if (cardBack.activeSelf)
             cardBack.SetActive(false);
+    }
+
+    public void SetCard(int id, Sprite image)
+    {
+        Id = id;
+        SpriteRenderer.sprite = image;
     }
 }
