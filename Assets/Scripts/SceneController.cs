@@ -12,6 +12,11 @@ public class SceneController : MonoBehaviour
     [SerializeField] MemoryCard originalCard;
     [SerializeField] Sprite[] images;
 
+    private MemoryCard firstRevealed;
+    private MemoryCard secondRevealed;
+
+    public bool CanReveal => secondRevealed == null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +47,14 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void CardRevealed(MemoryCard card)
+    {
+        if (firstRevealed == null)
+            firstRevealed = card;
+        else
+            secondRevealed = card;
     }
 
     private void ShuffleCards(int[] cardIds)
