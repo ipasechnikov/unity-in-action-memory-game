@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
@@ -53,6 +54,11 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadScene("SampleScene");
     }
 
     public void CardRevealed(MemoryCard card)
