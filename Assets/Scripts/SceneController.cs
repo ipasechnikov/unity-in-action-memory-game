@@ -15,8 +15,11 @@ public class SceneController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Positio of the first card. All other cards will be offest from here
+        // Position of the first card. All other cards will be offest from here
         var startPos = originalCard.transform.position;
+
+        var cardIds = new[] { 0, 0, 1, 1, 2, 2, 3, 3 };
+        ShuffleCards(cardIds);
 
         for (var row = 0; row < gridRows; row++)
             for (var col = 0; col < gridCols; col++)
@@ -25,9 +28,10 @@ public class SceneController : MonoBehaviour
                     ? Instantiate(originalCard)
                     : originalCard;
 
-                var id = Random.Range(0, images.Length);
-                var sprite = images[id];
-                card.SetCard(id, sprite);
+                var cardIdIndex = (row * gridCols) + col;
+                var cardId = cardIds[cardIdIndex];
+                var sprite = images[cardId];
+                card.SetCard(cardId, sprite);
 
                 var posX = (offsetX * col) + startPos.x;
                 var posY = -(offsetY * row) + startPos.y;
@@ -38,5 +42,16 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+
+    private void ShuffleCards(int[] cardIds)
+    {
+        for (var i = cardIds.Length - 1; i >= 0; i--)
+        {
+            var newIndex = Random.Range(0, i);
+            var temp = cardIds[i];
+            cardIds[i] = cardIds[newIndex];
+            cardIds[newIndex] = temp;
+        }
     }
 }
