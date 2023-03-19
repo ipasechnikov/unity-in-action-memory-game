@@ -12,6 +12,8 @@ public class SceneController : MonoBehaviour
     [SerializeField] MemoryCard originalCard;
     [SerializeField] Sprite[] images;
 
+    private int score = 0;
+
     private MemoryCard firstRevealed;
     private MemoryCard secondRevealed;
 
@@ -54,7 +56,10 @@ public class SceneController : MonoBehaviour
         if (firstRevealed == null)
             firstRevealed = card;
         else
+        {
             secondRevealed = card;
+            StartCoroutine(CheckMatch());
+        }
     }
 
     private void ShuffleCards(int[] cardIds)
@@ -66,5 +71,24 @@ public class SceneController : MonoBehaviour
             cardIds[i] = cardIds[newIndex];
             cardIds[newIndex] = temp;
         }
+    }
+
+    private IEnumerator CheckMatch()
+    {
+        if (firstRevealed.Id == secondRevealed.Id)
+        {
+            score++;
+            Debug.Log($"Score: {score}");
+        }
+        else
+        {
+            yield return new WaitForSeconds(.5f);
+
+            firstRevealed.Unreveal();
+            secondRevealed.Unreveal();
+        }
+
+        firstRevealed = null;
+        secondRevealed = null;
     }
 }

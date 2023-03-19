@@ -7,7 +7,8 @@ public class MemoryCard : MonoBehaviour
 {
     [SerializeField] GameObject cardBack;
     [SerializeField] SceneController sceneController;
-    [SerializeField] int Id { get; set; }
+
+    public int Id { get; private set; }
 
     private SpriteRenderer spriteRenderer;
     private SpriteRenderer SpriteRenderer
